@@ -21,9 +21,13 @@ for i in range(len_per_info):
     url = per_info[i]
     print(url)
     data = requests.get(url=url)
-    # check that request was successful
-    print(data.status_code)
-    empty_list.append(data.json())
+    status = False
+    while status == False:
+        if data.status_code == 200:
+            empty_list.append(data.json())
+            status = True
+        else:
+            data = requests.get(url=url)
 
 df1 = pd.DataFrame(empty_list)
 df1["name"] = df1["name"].fillna("")
