@@ -21,6 +21,8 @@ for i in range(len_per_info):
     url = per_info[i]
     print(url)
     data = requests.get(url=url)
+    # check that request was successful
+    print(data.status_code)
     empty_list.append(data.json())
 
 df1 = pd.DataFrame(empty_list)
