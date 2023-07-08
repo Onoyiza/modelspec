@@ -21,12 +21,13 @@ for i in range(len_per_info):
     url = per_info[i]
     print(url)
     data = requests.get(url=url)
-    status = False
-    while status == False:
+    requests_status = "unknown"
+    while (requests_status == "unknown") or (requests_status == "unsuccessful"):
         if data.status_code == 200:
+            requests_status = "successful"
             empty_list.append(data.json())
-            status = True
         else:
+            requests_status = "unsuccessful"
             data = requests.get(url=url)
 
 df1 = pd.DataFrame(empty_list)
